@@ -36,3 +36,7 @@
 .casestudydesc .columns > div {
   align-items: normal;
 }
+
+.casestudydesc .columns > div > :first-child {
+  flex: 0 0 70%;
+}
