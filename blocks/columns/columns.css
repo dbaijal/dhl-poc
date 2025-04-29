@@ -52,3 +52,16 @@
     margin-bottom: 25px;
   }
 }
+
+.casestudydesc .columns > div > div ul {
+  list-style-type: square;
+}
+
+.casestudydesc .columns > div > div ul li::marker {
+  color: #d40511;
+}
+
+.casestudydesc .columns > div > div h5 {
+    color: #d40511;
+    font-size: 18px;
+}
