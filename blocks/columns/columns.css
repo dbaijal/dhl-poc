@@ -40,3 +40,15 @@
 .casestudydesc .columns > div > :first-child {
   flex: 0 0 70%;
 }
+
+.casestudydesc .columns > div > :first-child {
+  flex: 0 0 70%;
+   h6 {
+    color: #d40511;
+    font-size: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+    width: fit-content;
+    margin-bottom: 25px;
+  }
+}
