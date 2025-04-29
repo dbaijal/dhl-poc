@@ -80,9 +80,11 @@
     text-transform: uppercase;
     color: #c20017; /* Red color (similar to DHL style) */
   }
+
   .casestudy-hero-wrapper {
-    margin-top: 50px;
+    margin-top: 50px !important;
   }
+
   /* Responsive behavior */
   @media (max-width: 991px) {
     .casehero-row {
