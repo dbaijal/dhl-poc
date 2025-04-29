@@ -31,3 +31,8 @@
     order: unset;
   }
 }
+
+
+.casestudydesc .columns > div {
+  align-items: normal;
+}
