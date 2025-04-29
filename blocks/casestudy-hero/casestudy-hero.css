@@ -25,7 +25,7 @@
     flex-direction: column;
     justify-content: center;
     flex: 1;
-    padding: 80px 40px;
+    padding: 80px 0 40px;
     color: #000;
   }
   
@@ -80,7 +80,9 @@
     text-transform: uppercase;
     color: #c20017; /* Red color (similar to DHL style) */
   }
-  
+  .casestudy-hero-wrapper {
+    margin-top: 50px;
+  }
   /* Responsive behavior */
   @media (max-width: 991px) {
     .casehero-row {
@@ -95,4 +97,6 @@
       background: #ecb800; /* Only yellow background on small screens */
     }
   }
+
+ 
   
