@@ -1,10 +1,8 @@
 export default async function decorate(block) {
     block.textContent = '';
     block.innerHTML= `
-    <div class="section casestudydesc columns-container">
-        
-        
-      <div class="columns-wrapper"><div class="columns block columns-2-cols">
+    <div class="casestudydesc columns-container">
+      <div class="columns-wrapper"><div class="columns columns-2-cols">
           <div>
             <div>
               <h6 id="customer-challenge">CUSTOMER CHALLENGE</h6>
