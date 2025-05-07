@@ -19,7 +19,7 @@ export default async function decorate(block) {
       <!-- Left: Text Content -->
       <div class="casehero-text">
         <p class="casehero-subheading">${cfReq?.casestudyType || ''}</p>
-        <h1 class="casehero-title"${cfReq?.casestudyTitle || ''}</h1>
+        <h1 class="casehero-title">${cfReq?.casestudyTitle || ''}</h1>
         <div class="casehero-separator"></div>
         <p class="casehero-intro">
          ${cfReq?.casestudyinfo?.plaintext}
