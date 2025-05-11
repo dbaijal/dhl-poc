@@ -26,6 +26,13 @@
             "value": "",
             "label": "HTML Input",
             "valueType": "string"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "inputText",
+            "label": "HTML Input Text",
+            "value": ""
           }
         ]
       }
