@@ -248,5 +248,17 @@
         }
       }
     ]
+  },
+  {
+    "id": "html-component",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "htmlInput",
+        "value": "",
+        "label": "HTML Input",
+        "valueType": "string"
+      }
+    ]
   }
 ]
