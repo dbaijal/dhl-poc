@@ -1,5 +1,5 @@
 export default async function decorate(block) {
-  const aempublishurl = 'https://author-p118103-e1621695.adobeaemcloud.com';
+ const aempublishurl = 'https://author-p118103-e1621695.adobeaemcloud.com';
   const persistedquery = '/graphql/execute.json/DHL/getCaseStudyDetails';
   const contentPath = block.querySelector(':scope div:nth-child(1) > div a')?.textContent?.trim();
   const url = `${aempublishurl}${persistedquery};path=${contentPath};ts=${
@@ -10,7 +10,7 @@ export default async function decorate(block) {
   .then((response) => response.json())
   .then((contentfragment) => {
     return contentfragment?.data?.casestudytemplateByPath?.item || null;
-  });
+  }); 
 
     block.textContent = '';
     block.innerHTML= `
@@ -52,4 +52,42 @@ export default async function decorate(block) {
           </div>
         </div></div></div>
     `;
+
+    const relatedHTML = `
+    <div class="casestudy-container">
+    <h1 class="related-section-title">Lorem Ipsum Dolar Sit</h1>
+    <div class="card-grid">
+      <div class="related-card">
+        <img src="image1.jpg" alt="Card Image 1">
+        <div class="related-card-body">
+          <h2 class="related-card-title">Lorem ipsum dolor sit amet <span class="arrow">➔</span></h2>
+          <p class="related-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="related-card">
+        <img src="image2.jpg" alt="Card Image 2">
+        <div class="related-card-body">
+          <h2 class="related-card-title">Lorem ipsum dolor sit amet <span class="arrow">➔</span></h2>
+          <p class="related-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="related-card">
+        <img src="image3.jpg" alt="Card Image 3">
+        <div class="related-card-body">
+          <h2 class="related-card-title">Lorem ipsum dolor sit amet <span class="arrow">➔</span></h2>
+          <p class="related-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="related-card">
+        <img src="image4.jpg" alt="Card Image 4">
+        <div class="related-card-body">
+          <h2 class="related-card-title">Lorem ipsum dolor sit amet <span class="arrow">➔</span></h2>
+          <p class="related-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+block.insertAdjacentHTML('beforeend', relatedHTML);
 }
