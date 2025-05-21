@@ -52,7 +52,7 @@ export default async function decorate(block) {
           </div>
         </div></div></div>
     `;
-
+/*
     const relatedHTML = `
     <div class="casestudy-container">
     <h1 class="related-section-title">Lorem Ipsum Dolar Sit</h1>
@@ -89,5 +89,39 @@ export default async function decorate(block) {
   </div>
 `;
 
+block.insertAdjacentHTML('beforeend', relatedHTML ); */
+// Dynamically build related case studies cards
+let relatedHTML = `
+  <div class="casestudy-container">
+    <h1 class="related-section-title">Related Case Studies</h1>
+    <div class="card-grid">
+`;
+
+if (cfReq?.relatedCaseStudies?.length) {
+  cfReq.relatedCaseStudies.forEach((item) => {
+    const imagePath = item?.casestudyImage?._path || '';
+    const title = item?.casestudyTitle || '';
+    const path = item?._path || '#';
+    
+    relatedHTML += `
+      <div class="related-card">
+        <a class="related-card-link">
+          <img src="${aempublishurl}${imagePath}" alt="${title}">
+          <div class="related-card-body">
+            <h2 class="related-card-title">${title} <span class="arrow">➔</span></h2>
+          </div>
+        </a>
+      </div>
+    `;
+  });
+}
+
+relatedHTML += `
+    </div>
+  </div>
+`;
+
+// Insert related case studies section into the block
 block.insertAdjacentHTML('beforeend', relatedHTML);
+
 }
