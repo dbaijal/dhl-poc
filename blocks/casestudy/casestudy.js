@@ -96,7 +96,7 @@ block.insertAdjacentHTML('beforeend', relatedHTML ); */
 // Dynamically build related case studies cards
 let relatedHTML = `
   <div class="casestudy-container">
-    <h1 class="related-section-title">${placeholders.RelatedCaseStudy}</h1>
+    <h1 class="related-section-title">${placeholders.relatedcasestudy}</h1>
     <div class="card-grid">
 `;
 
