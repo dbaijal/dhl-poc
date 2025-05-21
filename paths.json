@@ -2,7 +2,8 @@
   "mappings": [
     "/content/dhl/:/",
     "/content/dhl/configuration:/.helix/config.json",
-    "/content/dhl/metadata:/metadata.json"
+    "/content/dhl/metadata:/metadata.json",
+    "/content/dhl/placeholders:/placeholders.json"
   ],
   "includes": [
     "/content/dhl/"
