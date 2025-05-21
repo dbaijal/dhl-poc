@@ -94,6 +94,7 @@ export default async function decorate(block) {
 
 block.insertAdjacentHTML('beforeend', relatedHTML ); */
 // Dynamically build related case studies cards
+if (cfReq?.relatedCaseStudies?.length > 0) {
 let relatedHTML = `
   <div class="casestudy-container">
     <h1 class="related-section-title">${placeholders.relatedcasestudy}</h1>
@@ -126,5 +127,5 @@ relatedHTML += `
 
 // Insert related case studies section into the block
 block.insertAdjacentHTML('beforeend', relatedHTML);
-
+}
 }
