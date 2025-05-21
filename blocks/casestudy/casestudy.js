@@ -1,4 +1,7 @@
+import { fetchPlaceholders } from '../../scripts/aem.js';
+
 export default async function decorate(block) {
+ const placeholders = await fetchPlaceholders();
  const aempublishurl = 'https://author-p118103-e1621695.adobeaemcloud.com';
   const persistedquery = '/graphql/execute.json/DHL/getCaseStudyDetails';
   const contentPath = block.querySelector(':scope div:nth-child(1) > div a')?.textContent?.trim();
@@ -93,7 +96,7 @@ block.insertAdjacentHTML('beforeend', relatedHTML ); */
 // Dynamically build related case studies cards
 let relatedHTML = `
   <div class="casestudy-container">
-    <h1 class="related-section-title">Related Case Studies</h1>
+    <h1 class="related-section-title">${placeholders.RelatedCaseStudy}</h1>
     <div class="card-grid">
 `;
 
