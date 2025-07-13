@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p118103-e1621695.adobeaemcloud.com/bin/franklin.delivery/dbaijal/dhl-poc/main"
+    url: "https://author-p160058-e1711638.adobeaemcloud.com/bin/franklin.delivery/dbaijal/dhl-poc/main"
     type: "markup"
     suffix: ".html"
