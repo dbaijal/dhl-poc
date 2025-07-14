@@ -35,15 +35,12 @@
             "value": ""
           },
           {
-          "component": "date-time",
-          "valueType": "date",
-          "name": "field2",
-          "label": "Date Time",
-          "description": "This is another date time field that only stores the date.",
-          "required": true,
-          "placeholder": "YYYY-MM-DD",
-          "displayFormat": null,
-          "valueFormat": null
+            "component": "date-time",
+            "valueType": "date",
+            "value": "2024-09-23T00:00:00.000Z",
+            "name": "content_date",
+            "required": true,
+            "label": "Date Of Content creation"
           }
         ]
       }
