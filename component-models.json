@@ -244,7 +244,7 @@
         "label": "Content Fragment path",
         "valueType": "string",
         "validation": {
-            "rootPath": "/content/dam/DHL/content-fragments"
+            "rootPath": "/content/dam"
         }
       }
     ]
