@@ -287,9 +287,14 @@
     },
     {
       "component": "date-time",
-      "label": "Date & Time",
-      "name": "date",
-      "valueType": "date"
+      "valueType": "date",
+      "name": "field2",
+      "label": "Date Time",
+      "description": "This is another date time field that only stores the date.",
+      "required": true,
+      "placeholder": "YYYY-MM-DD",
+      "displayFormat": null,
+      "valueFormat": null
     }
   ]
 }
