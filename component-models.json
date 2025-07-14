@@ -267,5 +267,30 @@
         "value": ""
       }
     ]
-  }
+  },
+  {
+  "id": "test-component",
+  "fields": [
+    {
+      "component": "richtext",
+      "name": "htmlInput",
+      "value": "",
+      "label": "HTML Input",
+      "valueType": "string"
+    },
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "inputText",
+      "label": "HTML Input Text",
+      "value": ""
+    },
+    {
+      "component": "date-time",
+      "label": "Date & Time",
+      "name": "date",
+      "valueType": "date"
+    }
+  ]
+}
 ]
