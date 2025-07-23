@@ -294,5 +294,17 @@
       "label": "Date Of Content creation"
     }
   ]
+},
+{
+  "id": "articlefilter",
+  "fields": [
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "imageAlt",
+      "label": "Alt",
+      "value": ""
+    }
+  ]
 }
 ]

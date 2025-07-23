@@ -1,0 +1,135 @@
+.article-filter-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.filter-section {
+    flex: 0 0 250px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.filter-dropdown select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.articles-section {
+    flex: 1;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.article-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.article-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.article-content {
+    padding: 20px;
+}
+
+.article-type {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.article-type.news {
+    background-color: #bbdefb;
+    color: #0d47a1;
+}
+
+.article-type.blog {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+}
+
+.article-type.case-study {
+    background-color: #ffecb3;
+    color: #ff6f00;
+}
+
+.article-type.white-paper {
+    background-color: #e1bee7;
+    color: #4a148c;
+}
+
+.article-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.article-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.article-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: bold;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.article-link:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .article-filter-container {
+        flex-direction: column;
+    }
+    
+    .filter-section {
+        flex: none;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
