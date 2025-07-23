@@ -2,12 +2,20 @@ import { fetchPlaceholders } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
  const placeholders = await fetchPlaceholders();
- const aempublishurl = 'https://author-p160058-e1711638.adobeaemcloud.com';
+ const aemauthorurl = 'https://author-p160058-e1711638.adobeaemcloud.com';
+ const aempublishurl = 'https://publish-p160058-e1711638.adobeaemcloud.com';
   const persistedquery = '/graphql/execute.json/dhl/getCaseStudyDetails';
   const contentPath = block.querySelector(':scope div:nth-child(1) > div a')?.textContent?.trim();
-  const url = `${aempublishurl}${persistedquery};path=${contentPath};ts=${
+  const url = window?.location?.origin?.includes('author')
+    ? `${aemauthorurl}${persistedquery};path=${contentPath};ts=${
+        Math.random() * 1000
+      }`
+    : `${aempublishurl}${persistedquery};path=${contentPath};ts=${
         Math.random() * 1000
       }`;
+  /*const url = `${aempublishurl}${persistedquery};path=${contentPath};ts=${
+        Math.random() * 1000
+      }`; */
   const options = { credentials: 'include' };
   const cfReq = await fetch(url, options)
   .then((response) => response.json())
