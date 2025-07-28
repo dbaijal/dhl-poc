@@ -14,3 +14,18 @@ indices:
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
+
+  articles:
+    include:
+      - '/casestudy/**'
+    exclude:
+      - '/casestudy'
+    target: /articles-index.json
+    properties:
+      title:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+      type:
+        select: head > meta[name="cq-tags"]
+        value: attribute(el, "content")
+             
