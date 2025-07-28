@@ -211,7 +211,7 @@
 .article-link {
     display: inline-block;
     text-decoration: none;
-    color: #1976d2;
+    color: #d00; /* Changed to red */
     font-weight: bold;
     font-size: 14px;
     transition: color 0.2s ease;
@@ -220,7 +220,7 @@
 }
 
 .article-link:hover {
-    color: #0d47a1;
+    color: #a00; /* Darker red on hover */
     text-decoration: underline;
 }
 
@@ -298,9 +298,8 @@
     }
 }
 
-/* Accessibility improvements */
 .article-link:focus-visible {
-    outline: 2px solid #1976d2;
+    outline: 2px solid #d00;
     outline-offset: 2px;
     text-decoration: underline;
 }
