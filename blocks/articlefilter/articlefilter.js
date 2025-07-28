@@ -60,8 +60,8 @@ export default async function decorate(block) {
   
   // Fetch filter options and article data in parallel
   const [tagsResponse, articlesResponse] = await Promise.all([
-    fetchData('/article-tags.json'),
-    fetchData('/articles-index.json')
+    fetchData(addRandomNumber('/article-tags.json')),
+    fetchData(addRandomNumber('/articles-index.json'))
   ]);
   
   // Process tags data
@@ -92,6 +92,12 @@ export default async function decorate(block) {
     }));
   }
   
+  function addRandomNumber(url) {
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}${Math.floor(Math.random() * 1000000)}`;
+}
+
+
   // Create custom dropdown function
   function createCustomDropdown() {
     const dropdownContainer = document.createElement('div');
