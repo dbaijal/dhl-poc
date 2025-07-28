@@ -29,6 +29,9 @@ indices:
         select: head > meta[name="cq-tags"]
         value: attribute(el, "content")
       image:
-      selectFirst: main picture img
-      value: attribute(el, "src")
-             
+        selectFirst: main picture img
+        value: attribute(el, "src")
+      published_time:
+        select: head > meta[name="published-time"]
+        value: attribute(el, "content")
+               
