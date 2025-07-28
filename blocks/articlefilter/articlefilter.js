@@ -32,9 +32,6 @@ export default async function decorate(block) {
   const filterDropdown = document.createElement('div');
   filterDropdown.className = 'filter-dropdown';
   
-  const select = document.createElement('select');
-  select.id = 'articleTypeFilter';
-  
   // Add a loading indicator while data is being fetched
   const loadingDiv = document.createElement('div');
   loadingDiv.className = 'loading-indicator';
@@ -95,24 +92,84 @@ export default async function decorate(block) {
     }));
   }
   
-  // Populate filter dropdown
-  // First add "All Articles" option
-  const allOption = document.createElement('option');
-  allOption.value = 'all';
-  allOption.textContent = 'All';
-  select.appendChild(allOption);
-  
-  // Then add options from the tags data
-  if (allTags.length > 0) {
-    allTags.forEach(tag => {
-      const option = document.createElement('option');
-      option.value = tag;
-      option.textContent = tagMap.get(tag);
-      select.appendChild(option);
+  // Create custom dropdown function
+  function createCustomDropdown() {
+    const dropdownContainer = document.createElement('div');
+    dropdownContainer.className = 'custom-dropdown';
+    
+    const selectedOption = document.createElement('div');
+    selectedOption.className = 'selected-option';
+    selectedOption.innerHTML = `<span>All Articles</span><i class="dropdown-arrow"></i>`;
+    
+    const optionsList = document.createElement('div');
+    optionsList.className = 'dropdown-options';
+    
+    // Add "All Articles" option
+    const allOption = document.createElement('div');
+    allOption.className = 'dropdown-option selected';
+    allOption.dataset.value = 'all';
+    allOption.textContent = 'All Articles';
+    optionsList.appendChild(allOption);
+    
+    // Then add options from the tags data
+    if (allTags.length > 0) {
+      allTags.forEach(tag => {
+        const option = document.createElement('div');
+        option.className = 'dropdown-option';
+        option.dataset.value = tag;
+        option.textContent = tagMap.get(tag);
+        optionsList.appendChild(option);
+      });
+    }
+    
+    dropdownContainer.appendChild(selectedOption);
+    dropdownContainer.appendChild(optionsList);
+    
+    // Event handlers
+    selectedOption.addEventListener('click', () => {
+      dropdownContainer.classList.toggle('open');
     });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdownContainer.contains(e.target)) {
+        dropdownContainer.classList.remove('open');
+      }
+    });
+    
+    // Handle option selection
+    const options = optionsList.querySelectorAll('.dropdown-option');
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.dataset.value;
+        const text = option.textContent;
+        
+        // Update selected option display
+        selectedOption.querySelector('span').textContent = text;
+        
+        // Update selected class
+        options.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        
+        // Close dropdown
+        dropdownContainer.classList.remove('open');
+        
+        // Filter articles based on selection
+        if (value === 'all') {
+          renderArticles(articles);
+        } else {
+          const filteredArticles = articles.filter(article => article.type === value);
+          renderArticles(filteredArticles);
+        }
+      });
+    });
+    
+    return dropdownContainer;
   }
   
-  filterDropdown.appendChild(select);
+  // Add the custom dropdown to the filter section
+  const customDropdown = createCustomDropdown();
+  filterDropdown.appendChild(customDropdown);
   
   // Function to get CSS class from type
   function getCssClassFromType(type) {
@@ -151,16 +208,4 @@ export default async function decorate(block) {
   
   // Initial rendering of all articles
   renderArticles(articles);
-  
-  // Set up event listener for the filter dropdown
-  select.addEventListener('change', function() {
-    const selectedType = this.value;
-    
-    if (selectedType === 'all') {
-      renderArticles(articles);
-    } else {
-      const filteredArticles = articles.filter(article => article.type === selectedType);
-      renderArticles(filteredArticles);
-    }
-  });
 }
