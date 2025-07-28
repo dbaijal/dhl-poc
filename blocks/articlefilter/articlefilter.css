@@ -229,21 +229,25 @@
     display: inline-block;
     text-decoration: none;
     background-color: #d30000; /* Bright red background */
-    color: white; /* White text */
+    color: white !important; /* White text with !important to override any other styles */
     font-weight: 600;
     font-size: 14px;
-    padding: 10px 20px; /* More padding to create button shape */
+    padding: 8px 16px; /* Reduced padding */
     border-radius: 6px; /* Rounded corners */
     transition: background-color 0.2s ease;
     margin-top: auto;
     text-align: center;
+    width: auto; /* Make width fit content instead of stretching */
+    max-width: 140px; /* Limit the maximum width */
+    align-self: flex-start; /* Align to the start of the flex container */
 }
 
 .article-link:hover {
     background-color: #b00000; /* Darker red on hover */
-    color: white;
+    color: white !important;
     text-decoration: none; /* No underline on hover */
 }
+
 
 .loading-indicator {
     grid-column: 1 / -1;
