@@ -28,4 +28,7 @@ indices:
       type:
         select: head > meta[name="cq-tags"]
         value: attribute(el, "content")
+      image:
+      selectFirst: main picture img
+      value: attribute(el, "src")
              
