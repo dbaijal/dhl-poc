@@ -85,7 +85,7 @@ export default async function decorate(block) {
       id: item.path,
       type: item.type, // Keep the full type for exact matching
       title: item.title,
-      image: DEFAULT_IMAGE,
+      image: item.image,
       link: item.path,
       // Get the display name from the tag map or extract from the type
       displayType: tagMap.get(item.type)
