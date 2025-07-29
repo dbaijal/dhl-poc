@@ -29,7 +29,7 @@ indices:
         select: head > meta[name="cq-tags"]
         value: attribute(el, "content")
       image:
-        select: head > meta[name="og:image"]
+        select: head > meta[name="twitter:image"]
         value: attribute(el, "content")
       published_time:
         select: head > meta[name="published-time"]
