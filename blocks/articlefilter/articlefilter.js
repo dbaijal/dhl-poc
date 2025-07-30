@@ -1,4 +1,3 @@
-
 // Default image to use when none is available
 const DEFAULT_IMAGE = 'https://dummyimage.com/300x200';
 
@@ -29,8 +28,14 @@ export default async function decorate(block) {
   filterTitle.className = 'filter-title';
   filterTitle.textContent = 'Filter Articles';
   
-  const filterDropdown = document.createElement('div');
-  filterDropdown.className = 'filter-dropdown';
+  // Create two filter dropdowns
+  const assetTypeFilterContainer = document.createElement('div');
+  assetTypeFilterContainer.className = 'filter-dropdown asset-type-filter';
+  assetTypeFilterContainer.innerHTML = '<div class="filter-label">Filter by Asset Type</div>';
+  
+  const solutionFilterContainer = document.createElement('div');
+  solutionFilterContainer.className = 'filter-dropdown solution-filter';
+  solutionFilterContainer.innerHTML = '<div class="filter-label">Filter by Solution</div>';
   
   // Add a loading indicator while data is being fetched
   const loadingDiv = document.createElement('div');
@@ -50,7 +55,8 @@ export default async function decorate(block) {
   
   // Add sections to the filter container
   filterSection.appendChild(filterTitle);
-  filterSection.appendChild(filterDropdown);
+  filterSection.appendChild(assetTypeFilterContainer);
+  filterSection.appendChild(solutionFilterContainer);
   filterContainer.appendChild(filterSection);
   filterContainer.appendChild(articlesSection);
   
@@ -58,75 +64,137 @@ export default async function decorate(block) {
   block.textContent = '';
   block.appendChild(filterContainer);
   
-  // Fetch filter options and article data in parallel
-  const [tagsResponse, articlesResponse] = await Promise.all([
-    fetchData(addRandomNumber('/article-tags.json')),
+  // Track current filter selections
+  let currentAssetTypeFilter = 'all';
+  let currentSolutionFilter = 'all';
+  
+  // Fetch all required data in parallel
+  const [assetTypesResponse, solutionsResponse, articlesResponse] = await Promise.all([
+    fetchData(addRandomNumber('/asset-type.json')),
+    fetchData(addRandomNumber('/solution.json')),
     fetchData(addRandomNumber('/articles-index.json'))
   ]);
   
-  // Process tags data
-  const tagMap = new Map(); // Map to store tag to title mapping
-  let allTags = [];
-  
-  if (tagsResponse && tagsResponse.data) {
-    tagsResponse.data.forEach(item => {
-      // Skip the parent tag (which doesn't have a slash)
-      if (item.tag.includes('/')) {
-        tagMap.set(item.tag, item.title);
-        allTags.push(item.tag);
+  // Process asset types for dropdown
+  const assetTypeOptions = [{ value: 'all', text: 'All Asset Types', tag: 'all' }];
+  if (assetTypesResponse && assetTypesResponse.data) {
+    assetTypesResponse.data.forEach(item => {
+      // Skip parent tag
+      if (item.tag !== 'dhl:assettype') {
+        assetTypeOptions.push({
+          value: item.tag,
+          text: item.title,
+          tag: item.tag
+        });
       }
     });
   }
   
+  // Process solutions for dropdown
+  const solutionOptions = [{ value: 'all', text: 'All Solutions', tag: 'all' }];
+  if (solutionsResponse && solutionsResponse.data) {
+    solutionsResponse.data.forEach(item => {
+      // Skip parent tag
+      if (item.tag !== 'dhl:solution') {
+        solutionOptions.push({
+          value: item.tag,
+          text: item.title,
+          tag: item.tag
+        });
+      }
+    });
+  }
+  
+  // Create tag maps for quick lookup
+  const assetTypeMap = new Map();
+  assetTypeOptions.forEach(option => {
+    if (option.tag !== 'all') {
+      assetTypeMap.set(option.tag, option.text);
+    }
+  });
+  
+  const solutionMap = new Map();
+  solutionOptions.forEach(option => {
+    if (option.tag !== 'all') {
+      solutionMap.set(option.tag, option.text);
+    }
+  });
+  
   // Process articles data
   let articles = [];
   if (articlesResponse && articlesResponse.data) {
-    articles = articlesResponse.data.map(item => ({
-      id: item.path,
-      type: item.type, // Keep the full type for exact matching
-      title: item.title,
-      image: item.image,
-      link: item.path,
-      // Get the display name from the tag map or extract from the type
-      displayType: tagMap.get(item.type)
-    }));
+    articles = articlesResponse.data.map(item => {
+      // Split the comma-separated types string into an array
+      const typeString = item.type || '';
+      const types = typeString.split(',').map(t => t.trim());
+      
+      // Find asset type and solution in the types array
+      const assetType = types.find(t => t.includes('dhl:assettype/')) || '';
+      const solution = types.find(t => t.includes('dhl:solution/')) || '';
+      
+      return {
+        id: item.path,
+        path: item.path,
+        title: item.title,
+        image: item.image || DEFAULT_IMAGE,
+        types: types,
+        assetType: assetType,
+        solution: solution,
+        // Use display titles from our maps, or fall back to generated display names
+        assetTypeDisplay: assetTypeMap.get(assetType) || getDisplayNameFromTag(assetType),
+        solutionDisplay: solutionMap.get(solution) || getDisplayNameFromTag(solution)
+      };
+    });
   }
   
   function addRandomNumber(url) {
-  const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}${Math.floor(Math.random() * 1000000)}`;
-}
-
-
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}${Math.floor(Math.random() * 1000000)}`;
+  }
+  
+  // Helper function to extract display name from a tag
+  function getDisplayNameFromTag(tag) {
+    if (!tag) return '';
+    
+    // Extract the last part after the last slash
+    const parts = tag.split('/');
+    const lastPart = parts[parts.length - 1];
+    
+    // Convert to Title Case
+    return lastPart
+      .replace(/-/g, ' ')
+      .replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  }
+  
+  // Helper function to get CSS class from a tag
+  function getCssClassFromTag(tag) {
+    if (!tag) return '';
+    
+    // Extract the last part after the last slash
+    const parts = tag.split('/');
+    return parts[parts.length - 1].toLowerCase().replace(/\s+/g, '-');
+  }
+  
   // Create custom dropdown function
-  function createCustomDropdown() {
+  function createCustomDropdown(options, containerElement, filterType) {
     const dropdownContainer = document.createElement('div');
     dropdownContainer.className = 'custom-dropdown';
     
     const selectedOption = document.createElement('div');
     selectedOption.className = 'selected-option';
-    selectedOption.innerHTML = `<span>All Articles</span><i class="dropdown-arrow"></i>`;
+    selectedOption.innerHTML = `<span>${options[0].text}</span><i class="dropdown-arrow"></i>`;
     
     const optionsList = document.createElement('div');
     optionsList.className = 'dropdown-options';
     
-    // Add "All Articles" option
-    const allOption = document.createElement('div');
-    allOption.className = 'dropdown-option selected';
-    allOption.dataset.value = 'all';
-    allOption.textContent = 'All Articles';
-    optionsList.appendChild(allOption);
-    
-    // Then add options from the tags data
-    if (allTags.length > 0) {
-      allTags.forEach(tag => {
-        const option = document.createElement('div');
-        option.className = 'dropdown-option';
-        option.dataset.value = tag;
-        option.textContent = tagMap.get(tag);
-        optionsList.appendChild(option);
-      });
-    }
+    // Add options
+    options.forEach(opt => {
+      const option = document.createElement('div');
+      option.className = 'dropdown-option' + (opt.value === 'all' ? ' selected' : '');
+      option.dataset.value = opt.value;
+      option.textContent = opt.text;
+      optionsList.appendChild(option);
+    });
     
     dropdownContainer.appendChild(selectedOption);
     dropdownContainer.appendChild(optionsList);
@@ -144,8 +212,8 @@ export default async function decorate(block) {
     });
     
     // Handle option selection
-    const options = optionsList.querySelectorAll('.dropdown-option');
-    options.forEach(option => {
+    const dropdownOptions = optionsList.querySelectorAll('.dropdown-option');
+    dropdownOptions.forEach(option => {
       option.addEventListener('click', () => {
         const value = option.dataset.value;
         const text = option.textContent;
@@ -154,42 +222,55 @@ export default async function decorate(block) {
         selectedOption.querySelector('span').textContent = text;
         
         // Update selected class
-        options.forEach(opt => opt.classList.remove('selected'));
+        dropdownOptions.forEach(opt => opt.classList.remove('selected'));
         option.classList.add('selected');
         
         // Close dropdown
         dropdownContainer.classList.remove('open');
         
-        // Filter articles based on selection
-        if (value === 'all') {
-          renderArticles(articles);
-        } else {
-          const filteredArticles = articles.filter(article => article.type === value);
-          renderArticles(filteredArticles);
+        // Update current filter value based on which filter was changed
+        if (filterType === 'assetType') {
+          currentAssetTypeFilter = value;
+        } else if (filterType === 'solution') {
+          currentSolutionFilter = value;
         }
+        
+        // Apply both filters
+        applyFilters();
       });
     });
     
+    containerElement.appendChild(dropdownContainer);
     return dropdownContainer;
   }
   
-  // Add the custom dropdown to the filter section
-  const customDropdown = createCustomDropdown();
-  filterDropdown.appendChild(customDropdown);
-  
-  // Function to get CSS class from type
-  function getCssClassFromType(type) {
-    // Extract just the last part after the last slash for CSS class
-    const parts = type.split('/');
-    return parts[parts.length - 1];
+  // Function to apply both filters
+  function applyFilters() {
+    let filteredArticles = articles;
+    
+    // Apply Asset Type filter if not "All"
+    if (currentAssetTypeFilter !== 'all') {
+      filteredArticles = filteredArticles.filter(article => article.assetType === currentAssetTypeFilter);
+    }
+    
+    // Apply Solution filter if not "All"
+    if (currentSolutionFilter !== 'all') {
+      filteredArticles = filteredArticles.filter(article => article.solution === currentSolutionFilter);
+    }
+    
+    renderArticles(filteredArticles);
   }
+  
+  // Add the custom dropdowns to their containers
+  createCustomDropdown(assetTypeOptions, assetTypeFilterContainer, 'assetType');
+  createCustomDropdown(solutionOptions, solutionFilterContainer, 'solution');
   
   // Function to render articles
   function renderArticles(articlesToRender) {
     articlesContainer.innerHTML = ''; // Clear existing articles
     
     if (articlesToRender.length === 0) {
-      articlesContainer.innerHTML = '<div class="no-articles">No articles found matching this filter.</div>';
+      articlesContainer.innerHTML = '<div class="no-articles">No articles found matching these filters.</div>';
       return;
     }
     
@@ -197,14 +278,15 @@ export default async function decorate(block) {
       const articleElement = document.createElement('div');
       articleElement.className = 'article-card';
       
-      const cssClass = getCssClassFromType(article.type);
+      // Get CSS class from solution
+      const cssClass = getCssClassFromTag(article.solution);
       
       articleElement.innerHTML = `
-        <img src="${article.image}" alt="${article.title}" class="article-image">
+        <img src="${article.image}" onerror="this.src='${DEFAULT_IMAGE}'" alt="${article.title}" class="article-image">
         <div class="article-content">
-          <div class="article-type ${cssClass}">${article.displayType}</div>
+          <div class="article-type ${cssClass}">${article.solutionDisplay || 'Other'}</div>
           <h3 class="article-title">${article.title}</h3>
-          <a href="${article.link}" class="article-link">Read More</a>
+          <a href="${article.path}" class="article-link">Read More</a>
         </div>
       `;
       
