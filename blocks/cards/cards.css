@@ -25,3 +25,159 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* Feature Block Main Layout */
+.featureblock {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Cards Styling within Feature Block */
+.featureblock .cards-wrapper {
+  width: 100%;
+}
+
+.featureblock .cards ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.featureblock .cards li {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.featureblock .cards li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Icons - Adding them via CSS since they're not in the HTML */
+.featureblock .cards li:nth-child(1) .cards-card-body:first-child::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
+}
+
+.featureblock .cards li:nth-child(2) .cards-card-body:first-child::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
+}
+
+.featureblock .cards li:nth-child(3) .cards-card-body:first-child::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
+}
+
+.featureblock .cards li:nth-child(4) .cards-card-body:first-child::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
+}
+
+/* Card Content Styling */
+.featureblock .cards-card-body:first-child {
+  margin-bottom: 0.5rem;
+}
+
+.featureblock .cards-card-body h2 {
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0;
+  color: #333;
+}
+
+.featureblock .cards-card-body p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+
+/* Image container styling */
+.featureblock .default-content-wrapper {
+  width: 100%;
+  height: auto;
+}
+
+.featureblock .default-content-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* Tablet breakpoint (768px and up) */
+@media screen and (min-width: 768px) {
+  .featureblock .cards ul {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablet */
+  }
+}
+
+/* Desktop breakpoint (1024px and up) */
+@media screen and (min-width: 1024px) {
+  .featureblock {
+    grid-template-columns: 3fr 2fr; /* Left side (cards) takes 60%, right side (image) takes 40% */
+    align-items: center;
+  }
+  
+  .featureblock .default-content-wrapper {
+    height: 100%; /* Make the image container full height */
+    grid-row: 1;
+    grid-column: 2;
+  }
+  
+  .featureblock .default-content-wrapper img {
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .featureblock .cards-wrapper {
+    grid-row: 1;
+    grid-column: 1;
+  }
+}
+
+/* Large desktop breakpoint (1280px and up) */
+@media screen and (min-width: 1280px) {
+  .featureblock {
+    grid-template-columns: 2fr 1fr; /* More space for the cards on larger screens */
+  }
+}
