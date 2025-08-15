@@ -64,55 +64,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Card Icons - Adding them via CSS since they're not in the HTML */
-.featureblock .cards li:nth-child(1) .cards-card-body:first-child::before {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
-}
-
-.featureblock .cards li:nth-child(2) .cards-card-body:first-child::before {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
-}
-
-.featureblock .cards li:nth-child(3) .cards-card-body:first-child::before {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
-}
-
-.featureblock .cards li:nth-child(4) .cards-card-body:first-child::before {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: invert(26%) sepia(91%) saturate(3150%) hue-rotate(355deg) brightness(92%) contrast(83%); /* Red color filter */
-}
-
 /* Card Content Styling */
 .featureblock .cards-card-body:first-child {
   margin-bottom: 0.5rem;
@@ -155,23 +106,26 @@
 @media screen and (min-width: 1024px) {
   .featureblock {
     grid-template-columns: 3fr 2fr; /* Left side (cards) takes 60%, right side (image) takes 40% */
-    align-items: center;
+    align-items: stretch; /* Make both columns equal height */
   }
-  
-  .featureblock .default-content-wrapper {
-    height: 100%; /* Make the image container full height */
-    grid-row: 1;
-    grid-column: 2;
-  }
-  
-  .featureblock .default-content-wrapper img {
-    height: 100%;
-    object-fit: cover;
-  }
-  
+
   .featureblock .cards-wrapper {
-    grid-row: 1;
-    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    height: 100%;
+  }
+
+  .featureblock .default-content-wrapper {
+    display: flex;
+    height: 100%; /* Fill full column height */
+  }
+
+  .featureblock .default-content-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover full space without distortion */
+    display: block;
   }
 }
 
@@ -181,3 +135,4 @@
     grid-template-columns: 2fr 1fr; /* More space for the cards on larger screens */
   }
 }
+
