@@ -37,6 +37,10 @@
             {
               "name": "CaseStudyDescription",
               "value": "casestudydesc"
+            },
+            {
+            "name": "Feature Block",
+            "value": "featureblock"
             }
           ]
         }
