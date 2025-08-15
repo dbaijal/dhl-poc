@@ -26,129 +26,104 @@
   object-fit: cover;
 }
 
-/* Feature Block Main Layout */
+/* ================================
+   Feature Block - Full Final CSS
+   ================================ */
+
 .featureblock {
-  /* overlap amount used on desktop to let image tuck under cards */
-  --overlap: 24px;
-
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;                 /* mobile/tablet spacing */
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* spacing between cards */
+  justify-content: center;
 }
 
-/* Cards Styling within Feature Block */
-.featureblock .cards-wrapper {
-  width: 100%;
+/* Card base */
+.featureblock .card {
+  max-width: 340px;
+  flex: 0 0 340px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease-in-out;
 }
 
-.featureblock .cards ul {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;               /* gap between cards only */
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
+.featureblock .card:hover {
+  transform: translateY(-3px);
 }
 
-.featureblock .cards li {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-  z-index: 1;                /* ensure cards sit above the image when overlapping */
-}
-
-.featureblock .cards li:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Card Content */
-.featureblock .cards-card-body:first-child { margin-bottom: 0.5rem; }
-
-.featureblock .cards-card-body h2 {
-  font-size: 1.25rem;
-  margin: 0 0 0.75rem 0;
-  color: #333;
-}
-
-.featureblock .cards-card-body p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #666;
-  margin: 0;
-}
-
-/* Image column */
-.featureblock .default-content-wrapper {
-  width: 100%;
-  height: auto;
-}
-
-/* Remove default <p> margins inside the image wrapper so nothing adds gaps */
-.featureblock .default-content-wrapper p {
-  margin: 0;
-  height: 100%;
-}
-
-/* Make picture/img fill properly */
-.featureblock .default-content-wrapper picture {
-  display: block;
-  height: 100%;
-}
-.featureblock .default-content-wrapper img {
+/* Card image */
+.featureblock .card img {
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
 }
 
-/* Tablet breakpoint (768px and up) */
-@media screen and (min-width: 768px) {
-  .featureblock .cards ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Content area */
+.featureblock .card-overlap {
+  margin-top: -30px; /* overlap image */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background: #fff;
 }
 
-/* Desktop breakpoint (1024px and up) */
-@media screen and (min-width: 1024px) {
+/* Title */
+.featureblock .card-overlap h3 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+/* Paragraph */
+.featureblock .card-overlap p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* CTA link/button */
+.featureblock .card-overlap .cta {
+  margin-top: 15px;
+}
+
+/* ================================
+   Responsive Adjustments
+   ================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
   .featureblock {
-    grid-template-columns: 3fr 2fr;  /* Left: cards, Right: image */
-    align-items: stretch;            /* equal heights */
-    gap: 0;                          /* NO gap between columns */
+    gap: 16px;
   }
-
-  .featureblock .cards-wrapper {
-    height: 100%;
-    position: relative;
-    z-index: 2;                      /* keep cards above the image */
-  }
-
-  .featureblock .default-content-wrapper {
-    display: flex;
-    height: 100%;
-    position: relative;
-    z-index: 1;
-    margin-left: calc(var(--overlap) * -1);  /* slide image under cards */
-  }
-
-  .featureblock .default-content-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;               /* fill full column height */
+  .featureblock .card {
+    max-width: 300px;
+    flex: 0 0 300px;
   }
 }
 
-/* Large desktop breakpoint (1280px and up) */
-@media screen and (min-width: 1280px) {
+/* Mobile */
+@media (max-width: 768px) {
   .featureblock {
-    grid-template-columns: 2fr 1fr;
+    flex-direction: column;
+    align-items: center;
+  }
+  .featureblock .card {
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+  .featureblock .card-overlap {
+    margin-top: -20px;
+    padding: 16px;
+  }
+  .featureblock .card-overlap h3 {
+    font-size: 1.1rem;
   }
 }
+
 
