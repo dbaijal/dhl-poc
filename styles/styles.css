@@ -255,3 +255,95 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* Landing Hero Section Styling */
+.landinghero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Title styling */
+.landinghero h1 {
+  color: #cc0000; /* DHL red color */
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+/* Transform pre/code into normal text styling */
+.landinghero pre {
+  background: transparent;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  overflow: visible;
+  font-family: inherit;
+}
+
+.landinghero code {
+  background: transparent;
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: #333;
+  white-space: normal;
+  padding: 0;
+  line-height: 1.4;
+  display: block;
+}
+
+/* Add divider line after the subtitle */
+.landinghero pre::after {
+  content: "";
+  display: block;
+  width: 6rem;
+  height: 3px;
+  background-color: #333;
+  margin: 2rem 0;
+}
+
+/* Paragraph styling */
+.landinghero p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1.25rem;
+}
+
+.landinghero .default-content-wrapper p {
+  max-width: 800px;
+}
+
+.landinghero p:first-of-type {
+  color: #000;
+}
+
+/* Ensure the last paragraph has no bottom margin */
+.landinghero p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .landinghero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .landinghero code {
+    font-size: 1.25rem;
+  }
+  
+  .landinghero p {
+    font-size: 1rem;
+  }
+  
+  .landinghero .default-content-wrapper {
+    max-width: 100%; /* Full width on mobile */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .landinghero .default-content-wrapper {
+    max-width: 700px; /* Slightly narrower on tablet */
+  }
+}
