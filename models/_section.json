@@ -41,6 +41,10 @@
             {
             "name": "Feature Block",
             "value": "featureblock"
+            },
+            {
+            "name": "Landing Hero",
+            "value": "landinghero"
             }
           ]
         }
