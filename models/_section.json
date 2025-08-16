@@ -45,6 +45,10 @@
             {
             "name": "Landing Hero",
             "value": "landinghero"
+            },
+            {
+            "name": "Yellow Background",
+            "value": "yellobg"
             }
           ]
         }
