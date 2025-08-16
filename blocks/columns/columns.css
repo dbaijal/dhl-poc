@@ -70,3 +70,166 @@
   background-color: #f5f5f5;
   padding: 0 15px;
 }
+
+/* Yellow Background Section Styling */
+.yellobg {
+  background-color: #ffcc00; /* DHL yellow background */
+  padding: 3rem 2rem;
+}
+
+/* Main heading styling */
+.yellobg .default-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+
+.yellobg .default-content-wrapper h3 {
+  font-size: 2rem;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+/* Columns container styling */
+.yellobg .columns-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Corrected columns layout */
+.yellobg .columns > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Force 3 equal columns */
+  gap: 1.5rem;
+}
+
+/* Individual column styling */
+.yellobg .columns > div > div {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  height: 100%; /* Ensure all columns have same height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Column headings */
+.yellobg .columns h3 {
+  font-size: 1.25rem;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Column paragraph text */
+.yellobg .columns p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 1.25rem;
+}
+
+/* List styling */
+.yellobg .columns ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Allow list to fill available space */
+}
+
+.yellobg .columns li {
+  position: relative;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  color: #444;
+  border-top: 1px solid #eee;
+}
+
+/* Custom bullet points for list items */
+.yellobg .columns li::before {
+  content: "■";
+  position: absolute;
+  left: 0;
+  color: black; /* black square bullet */
+  font-size: 0.8rem;
+}
+
+.yellobg .columns li:first-child {
+  border-top: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .yellobg {
+    padding: 2rem 1rem;
+  }
+  
+  .yellobg .columns > div {
+    grid-template-columns: 1fr; /* Stack vertically on mobile */
+  }
+  
+  .yellobg .default-content-wrapper h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .yellobg .columns > div {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+  }
+  
+  /* Make the third column full width on tablet */
+  .yellobg .columns > div > div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Button Container Styling */
+.yellobg .button-container {
+  text-align: center;
+  margin: 2.5rem 0 1rem;
+}
+
+/* Remove italic styling from the button */
+.yellobg .button-container em {
+  font-style: normal;
+}
+
+/* Main Button Styling */
+.yellobg .button-container .button {
+  display: inline-block;
+  background-color: #cc0000; /* DHL red color */
+  color: white !important;
+  font-weight: bold;
+  font-size: 1.125rem;
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  border: none;
+  text-transform: none; /* Remove any text transformation */
+  min-width: 180px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Button Hover Effect */
+.yellobg .button-container .button:hover {
+  background-color: #aa0000; /* Darker red on hover */
+  text-decoration: none;
+}
+
+/* Override any secondary button styling */
+.yellobg .button-container .button.secondary {
+  background-color: #cc0000 !important; /* Force red background */
+  color: white !important;
+  border: none !important;
+}
+
+/* Override any secondary button hover styling */
+.yellobg .button-container .button.secondary:hover {
+  background-color: #aa0000 !important;
+  color: white !important;
+}
